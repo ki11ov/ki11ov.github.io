@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080809">
+  <meta name="description" content="KI11OV">
+  <title>KI11OV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+:root{color-scheme:dark;--ink:#080809;--white:#e9e9eb;--gray:#929296;--line:#5b5b60;--mono:"DM Mono",monospace}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}body{overflow:hidden;background:var(--ink);color:var(--white)}.screen{position:relative;width:100%;height:100svh;min-height:400px;display:grid;place-items:center;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 46%,#242427 0,#141416 28%,#0b0b0c 62%,#050506 100%)}
+/* Soft monochrome fog, a dim horizon, and a fine film grain make the empty space feel deep. */
+.screen:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E")}.screen:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;background:radial-gradient(ellipse at center,transparent 35%,#0009 100%)}.backdrop{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}.backdrop span{position:absolute;width:min(82vw,105vh);aspect-ratio:1;border:1px solid #bcbcc01a;border-radius:50%;animation:breath 12s ease-in-out infinite alternate}.backdrop span:nth-child(2){width:min(67vw,86vh);border-color:#e8e8ec13;animation-delay:-4s;transform:rotateX(65deg)}.backdrop span:nth-child(3){width:min(94vw,119vh);border-style:dashed;border-color:#bcbcc012;animation:turn 160s linear infinite}@keyframes breath{to{transform:scale(1.05) rotate(8deg);opacity:.45}}@keyframes turn{to{transform:rotate(360deg)}}
+.hood-stage{position:relative;width:min(72vw,600px);height:min(78svh,650px);aspect-ratio:1/1.05;z-index:2;isolation:isolate;filter:drop-shadow(0 32px 55px #000c)}.eyes{position:absolute;inset:24% 9% 19%;display:grid;place-items:center;transform:scale(.83);opacity:.07;filter:drop-shadow(0 0 25px #ffffff75);transition:transform 1s cubic-bezier(.17,.67,.15,1),opacity .75s}.eyes svg{width:100%;overflow:visible}.eye-shape{fill:#171719;stroke:#d5d5d8;stroke-width:3}.brow,.lashes{fill:none;stroke:#cacacd;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.lashes{stroke-width:2}.pupil{fill:#050506}.glint{fill:#fff}.hood-button{position:absolute;inset:0;z-index:2;width:100%;height:100%;border:0;padding:0;background:transparent;cursor:pointer;color:inherit;overflow:visible}.hood-button:focus-visible{outline:1px solid #eee;outline-offset:8px;border-radius:45%}.hood-panel{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;transition:transform 1.2s cubic-bezier(.74,0,.17,1),filter 1s}.hood-panel svg{height:100%;width:100%;display:block;overflow:visible}.hood-left{left:0;transform-origin:left center}.hood-right{right:0;transform-origin:right center}.hood-panel:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,#fff2,transparent 28%,#0008 75%,#fff1);mix-blend-mode:screen;opacity:.3}.hood-stage[data-revealed="true"] .hood-left{transform:translateX(-77%) rotate(-11deg)}.hood-stage[data-revealed="true"] .hood-right{transform:translateX(77%) rotate(11deg)}.hood-stage[data-revealed="true"] .eyes{opacity:1;transform:scale(1)}
+.word-river{position:absolute;left:0;right:0;bottom:0;height:92px;z-index:6;overflow:hidden;display:flex;align-items:center;mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%)}.word-track{display:flex;align-items:center;gap:clamp(24px,5vw,72px);min-width:max-content;animation:drift 48s linear infinite;color:#c7c7ca8c;font:clamp(10px,1.2vw,14px) var(--mono);letter-spacing:.36em;transform:translateY(12px);text-shadow:0 0 22px #fff3}.word-track b{font-weight:400;color:#eeeeef57;font-size:18px}@keyframes drift{to{transform:translate(-50%,12px)}}
+@media(max-width:700px){.screen{min-height:360px}.hood-stage{width:min(94vw,520px);height:min(78svh,570px)}.eyes{inset:26% 4% 21%}.word-river{height:72px}.word-track{gap:25px;letter-spacing:.24em}.backdrop span:nth-child(3){border-style:solid}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.iris-rings{fill:none;stroke:#eee;stroke-opacity:.72;stroke-width:1.25;stroke-dasharray:2 3;transform-box:fill-box;transform-origin:center;animation:iris-turn 18s linear infinite}.iris-rings ellipse:nth-child(even){stroke:#777;stroke-opacity:.8;stroke-dasharray:1 4;animation:iris-turn 8s linear infinite reverse}.iris-whorl{fill:none;stroke:#f5f5f5;stroke-width:1.4;stroke-linecap:round;stroke-opacity:.88;filter:drop-shadow(0 0 3px #fff8)}.pupil{transform-box:fill-box;transform-origin:center;animation:pupil-breathe 4s ease-in-out infinite}@keyframes iris-turn{to{transform:rotate(360deg)}}@keyframes pupil-breathe{50%{transform:scale(.78)}}
+.eyes:before,.eyes:after{content:"";position:absolute;inset:-8%;z-index:2;pointer-events:none;opacity:0}.eyes:before{background:repeating-linear-gradient(0deg,transparent 0 15px,#fff9 16px 18px,transparent 19px 34px);mix-blend-mode:screen}.eyes:after{background:linear-gradient(90deg,transparent 0 23%,#fff8 23% 29%,transparent 29% 64%,#fff7 64% 68%,transparent 68%);mix-blend-mode:screen}.screen.is-screamer{animation:screen-shake .95s steps(2,end) both}.screen.is-screamer .eyes{animation:eye-lunge 1.65s cubic-bezier(.14,.83,.18,1) both}.screen.is-screamer .eyes svg{filter:contrast(1.2)}.screen.is-glitch .eyes:before,.screen.is-glitch .eyes:after{opacity:.7;animation:eye-glitch .11s steps(2,end) 6}.screen.is-glitch .hood-panel{filter:contrast(1.6) brightness(1.35)}@keyframes screen-shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-10px,4px)}20%{transform:translate(8px,-5px)}30%{transform:translate(-7px,-2px)}40%{transform:translate(9px,4px)}50%{transform:translate(-6px,6px)}60%{transform:translate(5px,-4px)}70%{transform:translate(-4px,2px)}80%{transform:translate(3px,-3px)}90%{transform:translate(-2px,1px)}}@keyframes eye-lunge{0%{transform:scale(1)}12%{transform:scale(3.35)}53%{transform:scale(3.1)}67%{transform:scale(3.3)}82%{transform:scale(.95)}100%{transform:scale(1)}}@keyframes eye-glitch{0%{transform:translateX(-9px) skewX(-4deg);clip-path:inset(8% 0 65%)}50%{transform:translateX(8px) skewX(5deg);clip-path:inset(42% 0 32%)}100%{transform:translateX(-4px);clip-path:inset(75% 0 8%)}}
+@media(prefers-reduced-motion:reduce){.screen.is-screamer{animation:none}.screen.is-screamer .eyes{animation:eye-lunge .55s ease-out both}.screen.is-glitch .eyes:before,.screen.is-glitch .eyes:after{animation:none}}
+.hood-stage{width:min(72vw,600px,70svh);height:auto;aspect-ratio:1/1.05}
+.hood-stage[data-revealed="true"] .eyes{z-index:3}
+@media(max-width:700px){.hood-stage{width:min(94vw,520px,64svh);height:auto;aspect-ratio:1/1.05}.screen.is-screamer .eyes{animation-name:eye-lunge-mobile}.word-river{height:clamp(58px,11svh,82px)}@keyframes eye-lunge-mobile{0%{transform:scale(1)}12%{transform:scale(2.55)}53%{transform:scale(2.4)}67%{transform:scale(2.6)}82%{transform:scale(.95)}100%{transform:scale(1)}}}
+@media(max-height:500px) and (min-width:701px){.hood-stage{width:min(58vw,600px,58svh);height:auto}.word-river{height:52px}.word-track{font-size:10px}}
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <div class="backdrop" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="hood-stage" data-revealed="false">
+      <div class="eyes" aria-hidden="true">
+        <svg viewBox="0 0 440 250" role="presentation">
+          <defs><radialGradient id="iris" cx="42%" cy="34%"><stop stop-color="#f4f4f4"/><stop offset=".22" stop-color="#9b9b9e"/><stop offset=".7" stop-color="#444448"/><stop offset="1" stop-color="#141416"/></radialGradient></defs>
+          <path class="brow" d="M44 104Q113 36 204 92M236 92Q327 36 396 104"/>
+          <path class="eye-shape" d="M37 132Q116 48 211 128Q126 215 37 132ZM229 128Q324 48 403 132Q314 215 229 128Z"/>
+          <ellipse cx="124" cy="130" rx="35" ry="42" fill="url(#iris)"/><ellipse cx="316" cy="130" rx="35" ry="42" fill="url(#iris)"/>
+          <g class="iris-rings"><ellipse cx="124" cy="130" rx="29" ry="35"/><ellipse cx="316" cy="130" rx="29" ry="35"/><ellipse cx="124" cy="130" rx="23" ry="29"/><ellipse cx="316" cy="130" rx="23" ry="29"/></g>
+          <path class="iris-whorl" d="M124 96c19 4 22 20 10 30-10 8-25 2-24-9 1-8 11-10 15-4m191-17c19 4 22 20 10 30-10 8-25 2-24-9 1-8 11-10 15-4M124 164c-18-4-21-20-10-29 10-8 24-2 23 8-1 8-10 10-14 4m193 17c-18-4-21-20-10-29 10-8 24-2 23 8-1 8-10 10-14 4"/>
+          <ellipse class="pupil" cx="124" cy="132" rx="13" ry="24"/><ellipse class="pupil" cx="316" cy="132" rx="13" ry="24"/>
+          <circle cx="112" cy="116" r="6" class="glint"/><circle cx="304" cy="116" r="6" class="glint"/>
+          <path class="lashes" d="m49 112-19-14m31-8L49 69m47-6-5-24m130 73 19-14m-31-8 13-21m-47-6 5-24m190 73 19-14m-31-8 13-21m-47-6 5-24m95 75 19-14"/>
+        </svg>
+      </div>
+      <button class="hood-button" type="button" aria-label="Раздвинуть капюшон" aria-pressed="false">
+        <span class="hood-panel hood-left"><svg viewBox="0 0 500 560" aria-hidden="true"><defs><linearGradient id="fabricL" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#77777b"/><stop offset=".18" stop-color="#39393d"/><stop offset=".58" stop-color="#1b1b1e"/><stop offset="1" stop-color="#050506"/></linearGradient></defs><path d="M470 545H20Q48 404 96 303L54 176Q22 74 116 23q108-60 237 22 67 44 101 139L470 545Z" fill="url(#fabricL)" stroke="#99999d" stroke-width="2"/><path d="M116 23q31 138 145 175 130 44 193-14M55 176q84 32 111 112t-17 173" fill="none" stroke="#a1a1a5" stroke-opacity=".55" stroke-width="2"/><path d="M42 502q104-52 200-13M94 357q55 33 78 100" fill="none" stroke="#d0d0d2" stroke-opacity=".15" stroke-width="18"/><path d="M470 545 327 243q-34-70-88-103-54-31-107-3" fill="none" stroke="#bababe" stroke-opacity=".54" stroke-width="3"/><path d="m358 377 37 113" stroke="#8b8b8e" stroke-width="5" stroke-linecap="round"/></svg></span>
+        <span class="hood-panel hood-right"><svg viewBox="0 0 500 560" aria-hidden="true"><defs><linearGradient id="fabricR" x1="1" x2="0" y1="0" y2="1"><stop stop-color="#77777b"/><stop offset=".18" stop-color="#39393d"/><stop offset=".58" stop-color="#1b1b1e"/><stop offset="1" stop-color="#050506"/></linearGradient></defs><path d="M30 545h450q-28-141-76-242l42-127q32-102-62-153Q216-37 87 45 20 89-14 184L30 545Z" fill="url(#fabricR)" stroke="#99999d" stroke-width="2"/><path d="M384 23q-31 138-145 175-130 44-193-14m362-8q-84 32-111 112t17 173" fill="none" stroke="#a1a1a5" stroke-opacity=".55" stroke-width="2"/><path d="M458 502q-104-52-200-13m148-132q-55 33-78 100" fill="none" stroke="#d0d0d2" stroke-opacity=".15" stroke-width="18"/><path d="M30 545 173 243q34-70 88-103 54-31 107-3" fill="none" stroke="#bababe" stroke-opacity=".54" stroke-width="3"/><path d="m142 377-37 113" stroke="#8b8b8e" stroke-width="5" stroke-linecap="round"/></svg></span>
+      </button>
+    </div>
+    <div class="word-river" aria-label="KI11OV, forma, sensus, curiositas"><div class="word-track" aria-hidden="true"><span>KI11OV</span><b>·</b><span>FORMA</span><b>·</b><span>SENSUS</span><b>·</b><span>CURIOSITAS</span><b>·</b><span>KI11OV</span><b>·</b><span>FORMA</span><b>·</b><span>SENSUS</span><b>·</b><span>CURIOSITAS</span><b>·</b></div></div>
+  </main>
+  <script>
+const hoodStage = document.querySelector(".hood-stage");
+const hoodButton = document.querySelector(".hood-button");
+const screen = document.querySelector(".screen");
+let screamerTimer;
+let glitchTimer;
+let resetTimer;
+
+hoodButton.addEventListener("click", () => {
+  const revealed = hoodStage.dataset.revealed !== "true";
+  clearTimeout(screamerTimer);
+  clearTimeout(glitchTimer);
+  clearTimeout(resetTimer);
+  screen.classList.remove("is-screamer", "is-glitch");
+  hoodStage.dataset.revealed = String(revealed);
+  hoodButton.setAttribute("aria-pressed", String(revealed));
+  hoodButton.setAttribute("aria-label", revealed ? "Спрятать глаза под капюшон" : "Раздвинуть капюшон");
+
+  if (revealed) {
+    screamerTimer = setTimeout(() => screen.classList.add("is-screamer"), 180);
+    glitchTimer = setTimeout(() => screen.classList.add("is-glitch"), 1050);
+    resetTimer = setTimeout(() => screen.classList.remove("is-screamer", "is-glitch"), 1950);
+  }
+});
+  </script>
+</body>
+</html>
