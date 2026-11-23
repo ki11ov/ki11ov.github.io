@@ -12,6 +12,7 @@
       --sub: #8b94a7;
       --accent: #58a6ff;
       --border: #2c3037;
+      --card-hover: #21262d;
     }
     [data-theme="light"] {
       --bg: #f4f6fa;
@@ -20,6 +21,7 @@
       --sub: #6b7385;
       --accent: #2f6df0;
       --border: #d1d5de;
+      --card-hover: #f8fafc;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,9 +49,9 @@
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
     .card {
       background: var(--surface); padding: 1.5rem; border-radius: 12px;
-      border: 1px solid var(--border); transition: transform .2s, border-color .2s;
+      border: 1px solid var(--border); transition: all .2s;
     }
-    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); background: var(--card-hover); }
     .card h3 { margin-bottom: .4rem; }
     .card p { color: var(--sub); font-size: .92rem; line-height: 1.5; }
     .card .tag {
@@ -108,29 +110,52 @@
     <header>
       <div class="brand">ki11<span>ov</span></div>
       <nav>
-        <a class="btn" href="tg://resolve?domain=mexioy">Связаться</a>
+        <a class="btn" href="tg://resolve?domain=mexioy">Написать</a>
         <button class="theme-toggle" id="themeBtn">🌙</button>
       </nav>
     </header>
 
     <section>
-      <h2>Мои проекты</h2>
+      <h2>Проекты</h2>
       <div class="grid">
+        <a class="card" href="https://ki11ov.github.io/" target="_blank" rel="noopener">
+          <h3>ki11ov.github.io</h3>
+          <p>Экспериментальный сайт: анимации, визуал, стиль. Сделан ради эстетики, а не инфы.</p>
+          <span class="tag">сайт</span><br>
+          <span class="arrow">Перейти →</span>
+        </a>
         <a class="card" href="https://fizshop.ki11ov.workers.dev/" target="_blank" rel="noopener">
           <h3>FIZSHOP</h3>
-          <p>Мой маркетплейс: карточки товаров, поиск, бейджи «Хит» и «Новинка», тёмная/светлая тема, промокоды и админка.</p>
-          <span class="tag">веб-разработка</span><br>
-          <span class="arrow">Открыть сайт →</span>
+          <p>Маркетплейс с карточками товаров, поиском, промокодами и админкой. Всё собрано вручную.</p>
+          <span class="tag">магазин</span><br>
+          <span class="arrow">Открыть →</span>
         </a>
-        <article class="card">
-          <h3>Дизайн</h3>
-          <p>Бейджи, плашки, анимации, оформление интерфейсов. Собираю стиль под свои проекты и помогаю друзьям с визуалом.</p>
-          <span class="tag">UI / стиль</span>
-        </article>
+        <a class="card" href="https://ki11ov.github.io/music" target="_blank" rel="noopener">
+          <h3>Музыка</h3>
+          <p>Сайт с плейлистом: встроенный плеер снизу, перемотка, автопереход между треками. В стиле главной.</p>
+          <span class="tag">музыка</span><br>
+          <span class="arrow">Слушать →</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Чем занимаюсь</h2>
+      <div class="grid">
         <article class="card">
           <h3>Программирование</h3>
-          <p>Боты на Python, Flask-бэкенды, скрипты и автоматизация. Пишу код каждый день и разбираю чужие проекты ради опыта.</p>
+          <p>Пишу на Python, делаю Flask-бэкенды, автоматизирую рутину и собираю ботов.</p>
           <span class="tag">python · flask</span>
+        </article>
+        <article class="card">
+          <h3>Дизайн и UI</h3>
+          <p>Прорабатываю интерфейсы: стили, бейджи, анимации. Делаю так, чтобы было приятно пользоваться.</p>
+          <span class="tag">ui · стили</span>
+        </article>
+        <article class="card">
+          <h3>Git и деплой</h3>
+          <p>Работаю с репозиториями и ветками, деплою проекты на GitHub Pages и Cloudflare Workers.</p>
+          <span class="tag">git · деплой</span>
         </article>
       </div>
     </section>
@@ -139,24 +164,22 @@
       <div class="head">
         <div class="avatar">Е</div>
         <div>
-          <h3>Обо мне</h3>
-          <div class="place">Егор · Москва</div>
+          <h3>Егор (ki11ov)</h3>
+          <div class="place">Москва</div>
         </div>
       </div>
 
-      <p>Привет! Меня зовут Егор, в сети я <strong>ki11ov</strong>. Я из Москвы и с головой ушёл в код: делаю свои проекты — от веб-приложений до Telegram-ботов. Мне нравится путь от «просто идеи» до работающей вещи, которую можно открыть и потыкать.</p>
+      <p>Привет! Меня зовут Егор, в сети я <strong>ki11ov</strong>. Делаю свои проекты — от простых скриптов до полноценных сайтов. Люблю, когда из идеи получается что-то рабочее, что можно открыть и потыкать.</p>
 
-      <p>Начинал с простых скриптов и верстки, потом появились полноценные сайты и бэкенды на Flask. Сейчас мой главный проект — <strong>FIZSHOP</strong>, собственный маркетплейс: там я сам придумывал и интерфейс, и механику. Карточки товаров, поиск, бейджи, тёмная тема, промокоды в админке — всё сделано руками, без конструкторов.</p>
+      <p>Сейчас главный фокус — <strong>FIZSHOP</strong>: сам придумывал и интерфейс, и логику. Карточки, поиск, промокоды, админка — всё своими руками.</p>
 
-      <p>Я учусь на каждом проекте: разбираю чужой код, читаю документацию, ломаю и переделываю то, что не работает. Мне интересно всё, что связано с разработкой: от мелких анимаций на CSS до логики обработки пользователей.</p>
-
-      <p>Если у тебя есть идея — бот, сайт, что-то автоматизировать — пиши мне в Telegram. Всегда открыт к новым задачам, коллабам или просто к разговору про код.</p>
+      <p>Если есть задача — бот, сайт, автоматизация — пиши в Telegram. Готов к коллабам и новым идеям.</p>
 
       <div class="facts">
         <div class="fact"><b>📍 Москва</b> — живу здесь, люблю ночные катания по городу и размышления над кодом.</div>
         <div class="fact"><b>💻 стек:</b> Python, Flask, HTML/CSS, JavaScript, немного SQL и Git.</div>
+        <div class="fact"><b>🎮 в свободное время:</b> играю в инди-игры с сильным визуалом, слушаю лоу-фай и собираю референсы UI — просто чтобы держать насмотренность.</div>
         <div class="fact"><b>🚀 цель:</b> доводить свои проекты до конца и набивать руку реальными задачами.</div>
-        <div class="fact"><b>🎮 вне кода:</b> дизайн, музыка, игры и поиски красивых интерфейсов.</div>
       </div>
     </section>
 
