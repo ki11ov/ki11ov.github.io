@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ki11ov — музыка</title>
+  <style>
+    :root {
+      --bg: #0a0b0e;
+      --surface: #14161c;
+      --text: #e6eaf2;
+      --sub: #7d879b;
+      --accent: #58a6ff;
+      --accent2: #b18cff;
+      --border: #232733;
+      --hover: #1b1f29;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      min-height: 100vh;
+      padding-bottom: 96px;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(88, 166, 255, .08), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(177, 140, 255, .06), transparent);
+    }
+
+    .container { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+    header { margin-bottom: 3rem; }
+    .brand {
+      font-size: 2rem; font-weight: 700; letter-spacing: -1px; margin-bottom: .4rem;
+    }
+    .brand span { color: var(--accent); }
+    .sub { color: var(--sub); font-size: .85rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    .divider {
+      height: 1px; margin: 2.5rem 0;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .section-title {
+      color: var(--sub); font-size: .75rem; letter-spacing: 3px;
+      text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+
+    /* ===== ТРЕКИ ===== */
+    .track {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: .9rem 1.1rem; margin-bottom: .7rem;
+      display: flex; align-items: center; gap: 1rem; cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+      user-select: none;
+    }
+    .track:hover { border-color: var(--accent); background: var(--hover); transform: translateX(4px); }
+    .track.active {
+      border-color: var(--accent);
+      background: linear-gradient(90deg, rgba(88,166,255,.08), var(--hover));
+    }
+    .track .play {
+      width: 42px; height: 42px; min-width: 42px; border-radius: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .track.active .play { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .track:hover .play { border-color: var(--accent); color: var(--accent); }
+    .track.active:hover .play { color: #fff; }
+    .track .info { flex: 1; min-width: 0; }
+    .track .title { font-weight: 600; font-size: .95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .track.active .title { color: var(--accent); }
+    .track .artist { color: var(--sub); font-size: .8rem; margin-top: .15rem; }
+    .track .num { color: var(--sub); font-size: .75rem; min-width: 1.6rem; text-align: right; }
+
+    .empty {
+      color: var(--sub); text-align: center; padding: 4rem 0;
+      border: 1px dashed var(--border); border-radius: 12px;
+    }
+
+    /* ===== ПЛЕЕР ВНИЗУ ===== */
+    .player-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(14, 16, 20, .92);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      padding: .9rem 1.5rem;
+      transform: translateY(120%); transition: transform .3s;
+    }
+    .player-bar.visible { transform: translateY(0); }
+    .player-inner { max-width: 680px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; }
+    .pp-btn {
+      width: 44px; height: 44px; min-width: 44px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      transition: filter .2s;
+    }
+    .pp-btn:hover { filter: brightness(1.15); }
+    .player-info { flex: 1; min-width: 0; }
+    .player-title { font-size: .9rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .player-artist { color: var(--sub); font-size: .75rem; }
+    .progress-wrap { margin-top: .45rem; height: 4px; background: var(--border); border-radius: 999px; cursor: pointer; }
+    .progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 999px; }
+    .time { color: var(--sub); font-size: .72rem; min-width: 7.5rem; text-align: right; }
+
+    /* ===== МОДАЛКА ДЛЯ ВИДЕО ===== */
+    .modal {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(5, 6, 8, .85); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .modal.open { display: flex; }
+    .modal-box { width: 100%; max-width: 860px; }
+    .modal-video { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+    .modal-close {
+      margin-top: 1rem; color: var(--sub); background: none; border: 1px solid var(--border);
+      border-radius: 8px; padding: .5rem 1rem; cursor: pointer; font-family: inherit; font-size: .8rem;
+      letter-spacing: 1px; transition: all .2s;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--accent); }
+
+    footer { margin-top: 3rem; color: var(--sub); font-size: .78rem; text-align: center; letter-spacing: 1px; }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="brand">ki11<span>ov</span></div>
+      <div class="sub">// звуковая полка</div>
+    </header>
+
+    <div class="divider"></div>
+
+    <div class="section-title">пластинки</div>
+    <div id="list"></div>
+
+    <footer>
+      © 2026 ki11ov · <a href="https://ki11ov.github.io/">на главную</a>
+    </footer>
+  </div>
+
+  <!-- плеер снизу -->
+  <div class="player-bar" id="playerBar">
+    <div class="player-inner">
+      <button class="pp-btn" id="ppBtn">▶</button>
+      <div class="player-info">
+        <div class="player-title" id="pTitle">—</div>
+        <div class="player-artist" id="pArtist"></div>
+        <div class="progress-wrap" id="progressWrap"><div class="progress" id="progress"></div></div>
+      </div>
+      <div class="time" id="pTime">0:00 / 0:00</div>
+    </div>
+  </div>
+
+  <!-- модалка для видео-треков -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <iframe class="modal-video" id="ytFrame" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <button class="modal-close" id="modalClose">закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    // ===== СПИСОК ТРЕКОВ =====
+    // type: "youtube" — вставишь ссылку на видео
+    // type: "file"    — свой mp3 из папки tracks/ в этом же репозитории
+    const tracks = [
+{ title: "Всё забрал", artist: "Русалочье урочище", type: "youtube", src: "https://youtu.be/rTMqOGyvNqU?si=yxrf-bIvU7LMS4So" },
+      { title: "sexyswag2010", artist: "madk1d", type: "youtube", src: "https://youtu.be/ce29K68xVFI?si=TOl5BkUxuDCsTINP" },
+      { title: "Друг", artist: "KSB muzic", type: "youtube", src: "https://youtu.be/VJMAm0TJMac?si=wOj9yNoKQ-wo1Gdz" },
+      { title: "с нами дома", artist: "zhanulka", type: "youtube", src: "https://youtu.be/sNNZcJ5zxuM?si=K2oY5lILvWdWIPND" },
+      { title: "Напудренные алкаши", artist: "kofta", type: "youtube", src: "https://youtu.be/bgup9kGL9eg?si=9vNkuIWmFbbFyO5l" },
+      { title: "EDM", artist: "Big Baby Tape & Платина & Aarne", type: "youtube", src: "https://youtu.be/YwgQWaVXeKQ?si=IxR7I1SoFn4IVff6" },
+      { title: "Are Girls Are The Same", artist: "Juice WRLD", type: "youtube", src: "https://youtu.be/nNvKJ7THAUc?si=pK-42pFb2nbYRPjv" },    ];
+    // ==========================
+
+    const list = document.getElementById('list');
+    const bar = document.getElementById('playerBar');
+    const ppBtn = document.getElementById('ppBtn');
+    const pTitle = document.getElementById('pTitle');
+    const pArtist = document.getElementById('pArtist');
+    const progress = document.getElementById('progress');
+    const progressWrap = document.getElementById('progressWrap');
+    const pTime = document.getElementById('pTime');
+    const audio = new Audio();
+    const modal = document.getElementById('modal');
+    const ytFrame = document.getElementById('ytFrame');
+
+    let current = -1;
+    let playing = false;
+
+    function ytId(url) {
+      const m = url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+      return m ? m[1] : null;
+    }
+
+    function fmt(s) {
+      if (!isFinite(s)) s = 0;
+      const m = Math.floor(s / 60), r = Math.floor(s % 60);
+      return m + ':' + String(r).padStart(2, '0');
+    }
+
+    function renderList() {
+      list.innerHTML = '';
+      if (!tracks.length) {
+        list.innerHTML = '<div class="empty">треков пока нет — самое время добавить</div>';
+        return;
+      }
+      tracks.forEach((t, i) => {
+        const el = document.createElement('div');
+        el.className = 'track';
+        el.dataset.i = i;
+        el.innerHTML =
+          '<div class="play"><span class="ico">▶</span></div>' +
+          '<div class="info"><div class="title">' + t.title + '</div>' +
+          '<div class="artist">' + t.artist + '</div></div>' +
+          '<div class="num">' + String(i + 1).padStart(2, '0') + '</div>';
+        list.appendChild(el);
+      });
+    }
+
+    // список рендерим один раз, клики ловим делегированием — ничего не прыгает
+    list.addEventListener('click', (e) => {
+      const el = e.target.closest('.track');
+      if (el) play(+el.dataset.i);
+    });
+
+    function highlight() {
+      document.querySelectorAll('.track').forEach((el, i) => {
+        el.classList.toggle('active', i === current);
+        if (i === current) {
+          el.querySelector('.ico').textContent = playing ? '❚❚' : '▶';
+        } else {
+          el.querySelector('.ico').textContent = '▶';
+        }
+      });
+    }
+
+    function stopAll() {
+      audio.pause(); audio.currentTime = 0;
+      ytFrame.src = '';
+    }
+
+    function play(i) {
+      if (current === i && tracks[i].type === 'file') {
+        // тот же трек — пауза/плей
+        if (playing) { audio.pause(); } else { audio.play(); }
+        return;
+      }
+      stopAll();
+      current = i;
+      const t = tracks[i];
+      pTitle.textContent = t.title;
+      pArtist.textContent = t.artist;
+      bar.classList.add('visible');
+
+      if (t.type === 'file') {
+        audio.src = t.src;
+        audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+      } else {
+        const id = ytId(t.src);
+        if (!id) { pTitle.textContent = 'ссылка не распознана'; current = -1; highlight(); return; }
+        modal.classList.add('open');
+        ytFrame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+        playing = false; ppBtn.textContent = '▶';
+        pTime.textContent = '—';
+        progress.style.width = '0%';
+      }
+      highlight();
+    }
+
+    function setPlaying(v) {
+      playing = v;
+      ppBtn.textContent = v ? '❚❚' : '▶';
+      highlight();
+    }
+
+    ppBtn.addEventListener('click', () => {
+      if (current === -1) return;
+      const t = tracks[current];
+      if (t.type === 'file') {
+        playing ? audio.pause() : audio.play();
+      } else {
+        // для видео — открыть модалку снова
+        const id = ytId(t.src);
+        modal.classList.add('open');
+        ytFrame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+      }
+    });
+
+    audio.addEventListener('play', () => setPlaying(true));
+    audio.addEventListener('pause', () => setPlaying(false));
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        progress.style.width = (audio.currentTime / audio.duration * 100) + '%';
+        pTime.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+      }
+    });
+    audio.addEventListener('ended', () => {
+      if (current + 1 < tracks.length) play(current + 1);
+      else { setPlaying(false); progress.style.width = '0%'; }
+    });
+
+    progressWrap.addEventListener('click', (e) => {
+      if (!audio.duration) return;
+      const r = progressWrap.getBoundingClientRect();
+      audio.currentTime = (e.clientX - r.left) / r.width * audio.duration;
+    });
+
+    document.getElementById('modalClose').addEventListener('click', () => {
+      modal.classList.remove('open');
+      ytFrame.src = '';
+      highlight();
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) { modal.classList.remove('open'); ytFrame.src = ''; }
+    });
+
+    renderList();
+  </script>
+</body>
+</html>
