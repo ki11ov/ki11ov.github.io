@@ -122,9 +122,17 @@
     }
     .modal-close:hover { color: var(--text); border-color: var(--accent); }
 
-    footer { margin-top: 3rem; color: var(--sub); font-size: .78rem; text-align: center; letter-spacing: 1px; }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    footer { margin-top: 3rem; text-align: center; }
+    footer .copyright {
+      color: var(--sub); font-size: .78rem; letter-spacing: 1px; margin-bottom: 1rem;
+    }
+    .home-btn {
+      display: inline-block; padding: .55rem 1.2rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); text-decoration: none; font-size: .8rem;
+      letter-spacing: 1px; transition: all .2s;
+    }
+    .home-btn:hover { border-color: var(--accent); color: var(--accent); }
   </style>
 </head>
 <body>
@@ -141,7 +149,8 @@
     <div id="list"></div>
 
     <footer>
-      © 2026 ki11ov · <a href="https://ki11ov.github.io/">на главную</a>
+      <div class="copyright">© 2026 ki11ov</div>
+      <a class="home-btn" href="https://ki11ov.github.io/biography/">← на главную</a>
     </footer>
   </div>
 
@@ -171,13 +180,8 @@
     // type: "youtube" — вставишь ссылку на видео
     // type: "file"    — свой mp3 из папки tracks/ в этом же репозитории
     const tracks = [
-{ title: "Всё забрал", artist: "Русалочье урочище", type: "youtube", src: "https://youtu.be/rTMqOGyvNqU?si=yxrf-bIvU7LMS4So" },
-      { title: "sexyswag2010", artist: "madk1d", type: "youtube", src: "https://youtu.be/ce29K68xVFI?si=TOl5BkUxuDCsTINP" },
-      { title: "Друг", artist: "KSB muzic", type: "youtube", src: "https://youtu.be/VJMAm0TJMac?si=wOj9yNoKQ-wo1Gdz" },
-      { title: "с нами дома", artist: "zhanulka", type: "youtube", src: "https://youtu.be/sNNZcJ5zxuM?si=K2oY5lILvWdWIPND" },
-      { title: "Напудренные алкаши", artist: "kofta", type: "youtube", src: "https://youtu.be/bgup9kGL9eg?si=9vNkuIWmFbbFyO5l" },
-      { title: "EDM", artist: "Big Baby Tape & Платина & Aarne", type: "youtube", src: "https://youtu.be/YwgQWaVXeKQ?si=IxR7I1SoFn4IVff6" },
-      { title: "Are Girls Are The Same", artist: "Juice WRLD", type: "youtube", src: "https://youtu.be/nNvKJ7THAUc?si=pK-42pFb2nbYRPjv" },    ];
+      { title: "Всё забрал", artist: "Русалочье Урочище", type: "youtube", src: "https://www.youtube.com/watch?v=_4jz1UBCUB8" },
+    ];
     // ==========================
 
     const list = document.getElementById('list');
@@ -326,3 +330,4 @@
   </script>
 </body>
 </html>
+
